@@ -1,0 +1,26 @@
+{% extends "base1.html" %}
+
+{% block content %}
+<div class="capThree">Log in</div>
+	<form class="form-horizontal" role="form">
+		<div class="form-group">
+			<label for="inputEmail3" class="col-sm-3 control-label designation">Login</label>
+			<div class="col-sm-7">
+				<input type="text" maxlength="48" class="form-control input-lg" placeholder="Enter your login">
+			</div>
+		</div>
+		<div class="form-group has-error">
+			<label for="inputPassword3" class="col-sm-3 control-label designation">Email</label>
+			<div class="col-sm-7">
+				<input type="text" maxlength="48" class="form-control input-lg" placeholder="Enter your email" id="inputError1">
+			</div>
+			<label class="control-label col-sm-2" for="inputError1">Input Error</label><br>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-3 col-sm-9 adress">
+				<button type="submit" class="btn btn-lg">Log in!</button>
+			</div>
+		</div>
+	</form>
+<a class="col-sm-offset-3" href="{% url 'signup' %}">create new accaunt</a>
+{% endblock %}

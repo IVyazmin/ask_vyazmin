@@ -1,0 +1,10 @@
+{% extends "index.html" %}
+
+{% block cap %}
+  <div class="capThree">Tag: {{ using_tag }}</div>
+{% endblock %}
+
+{% block paginator %}
+  {% url "tag" using_tag as start_url %}
+  {% include "./paginator.html" %}
+{% endblock %}

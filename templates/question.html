@@ -1,0 +1,62 @@
+
+
+
+{% extends "base1.html" %}
+
+
+
+{% block content %}
+<div class="answer">
+  <div class="row">
+    <div class="col-md-3">
+      <img class="avatar" src="/r.jpg" alt="Avatar" class="img-rounded">
+      <div class="btn-group btn-group-lg">
+        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-arrow-down"></span></button>
+        <button type="button" class="btn btn-default disabled">{{ using_question.likes }}</button>
+        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-arrow-up"></span></button>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <span class="capThree">{{ using_question.title }}</span>
+      <br>
+      {{ using_question.text }}<br><br>
+       Tags:  {% for tag in using_question.tags %}<a href="{% url 'tag' tag %}"> {{tag}}, </a>{% endfor %}
+    </div>
+  </div>
+</div>
+<hr>
+{% for answer in page %} 
+  <div class="question">
+    <div class="row">
+      <div class="col-md-2">
+        <img class="avatar" src="/r.jpg" alt="Avatar" class="img-rounded">
+        <div class="btn-group btn-group-sm">
+          <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-arrow-down"></span></button>
+          <button type="button" class="btn btn-default disabled">{{ answer.likes }}</button>
+          <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-arrow-up"></span></button>
+        </div>
+      </div>
+      <div class="col-md-10">
+        {{ answer.text }}<br>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value=""> Correct!
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+  {% block paginator %}
+    {% url "question" using_question.number as start_url %}
+    {% include "./paginator.html" %}
+  {% endblock %}
+
+  <hr>
+  <form class="form-horizontal myAnswer" role="form">
+    <textarea class="form-control input-lg" maxlength="256" placeholder="Enter yor answer here." rows="5"></textarea>
+    <button type="submit" class="btn btn-success">Answer</button>
+  </form>
+        
+{% endblock %}

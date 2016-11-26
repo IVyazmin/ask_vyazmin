@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block registration %}
+  <div class="col-md-4 noName">
+    <a href="{% url 'login' %}">login</a>
+    <a href="{% url 'signup' %}">register</a>
+  </div>
+{% endblock %}

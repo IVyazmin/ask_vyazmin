@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block registration %}
+<div class="col-md-1" id="imag">
+  <img class="capTwo" src="r.jpg" alt="Avatar" class="img-rounded">
+</div>
+<div class="col-md-3">
+  Dr. Pepper<br>
+  <a href="{% url 'setting' %}">setting</a>
+  <a href="{% url 'login' %}">log out</a>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+
+{% extends "index.html" %}
+
+
+
+{% block cap %}
+  <div class="capThree"><a href="{% url 'index' %}">New Questions<a/> Hot questions</div>
+{% endblock %}
+
+
+{% block paginator %}
+  {% url "hot" as start_url %}
+  {% include "./paginator.html" %}
+{% endblock %}

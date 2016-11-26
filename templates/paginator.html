@@ -1,0 +1,14 @@
+
+<div class="btn-group btn-group-lg">
+  {% if page.number > 2 %}
+    <a href="{{ start_url }}" ><button type="button" class="btn btn-default">1</button></a>
+    <a><button type="button" class="btn btn-default">...</button></a>
+  {% endif %}
+  {% if page.has_previous %}
+    <a  href="{{ start_url }}{{ page.previous_page_number }}" ><button type="button"class="btn btn-default">{{ page.previous_page_number }}</button></a>
+  {% endif %}
+  <a><button type="button" class="btn btn-default">{{ page.number }}</button></a>
+  {% if page.has_next %}
+    <a  href="{{ start_url }}{{ page.next_page_number }}"><button type="button" class="btn btn-default">{{ page.next_page_number }}</button></a>
+  {% endif %}
+</div>

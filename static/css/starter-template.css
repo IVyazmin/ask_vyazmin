@@ -1,0 +1,168 @@
+body {
+  margin-left: 30px; 
+}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+hr {
+	border-color: black;
+	color: black;
+	margin-left: 0px;
+}
+div.capZero {
+	background: gray;
+	text-align: center;
+	font-size: 30px;
+	margin: 0px;
+	color: black;
+}
+.question img {
+  overflow: auto;
+  height: 110px;
+  width: 110px;
+}
+div.question {
+  padding: 20px;
+  margin: 30px;
+  border: 2px solid black;
+  font-size: x-large;
+}
+.row {
+	padding: 10px 10px 0px;
+	text-align: left;
+}
+a {
+  
+  
+  color: blue;
+  font-size: 28px;
+}
+ div.question > a {
+  font-size: xx-large;
+}
+.question .btn-group {
+	text-align: center;
+	margin-left: 7px;
+	margin-bottom: 0px;
+}
+#name{
+  text-align: center;
+  font-size: 35px;
+  margin-top: 15px;
+  color: black;
+}
+
+a.number {
+  margin-right: 30px;
+}
+.cap {
+  color: black;
+  background: grey;
+  height: 80px;
+  padding-top: 10px;
+  padding-bottom: 35px;
+  text-align: center;
+}
+.capTwo {
+  text-align: left;
+  font-size: 25px;
+  padding-top: 25px;
+}
+.capTwo img{
+  overflow: auto;
+  height: 50px;
+  width: 50px;
+  margin-top: 15px;
+  padding-top: 0px;
+}
+
+.capTwo input, button {
+	margin-top: 20px;
+}
+
+
+#imag {
+	text-align: right;
+}
+.capTwo .noName {
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+.capThree {
+	font-size: 35px;
+	padding-left: 30px;
+}
+.capThree a {
+	margin-left: 40px;
+}
+.btn-group {
+	margin-left: 30px;
+	margin-bottom: 30px;
+}
+.tags {
+	margin-top: 30px; 
+	color: black;
+	font-size: 35px;
+}
+div.tags a{
+	color: black;
+}
+.members {
+	font-size: 35px;
+}
+
+
+
+.form-horizontal {
+	margin-top: 40px;
+	margin-right:70px;
+	font-size: 24px;
+	margin-left: 32px;
+}
+
+
+.answer {
+  margin: 30px;
+  font-size: x-large;
+}
+.answer img {
+  overflow: auto;
+  height: 180px;
+  width: 170px;
+}
+.answer .btn-group {
+	text-align: center;
+	margin-left: 10px;
+	margin-bottom: 0px;
+	margin-top: 15px;
+}
+.question div.checkbox input{
+	margin-top: 11px;
+}
+.myAnswer {
+  margin: 30px;
+  font-size: x-large;
+}
+
+
+form div.form-group div.adress {
+	padding: 0px 15px;
+}
+
+#choose {
+	margin-top: 0px;
+}
+
+form div.form-group label.designation {
+	text-align: left;
+}
+
+
+img.setting {
+  overflow: auto;
+  height: 120px;
+  width: 120px;
+  margin-top: 20px;
+  padding-left: 15px;
+}
