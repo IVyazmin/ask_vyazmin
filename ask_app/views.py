@@ -72,7 +72,7 @@ def hot(request, page_number = 1):
 def signup(request):
     
     if request.POST:
-        form = SignupForm(request.POST)
+        form = SignupForm(request.POST, request.FILES)
         if form.is_valid():
             form.add()
             user = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])

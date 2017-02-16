@@ -8,6 +8,7 @@ class SignupForm(forms.Form):
 	email = forms.EmailField(label='Email', max_length=20, widget=forms.EmailInput(attrs={'class': 'form-control input-lg', 'placeholder': "Enter email"}))
 	repeat_password = forms.CharField(label='Password', max_length=20, widget=forms.PasswordInput(attrs={'class': 'form-control input-lg', 'placeholder': "Enter password"}))
 	password = forms.CharField(label='Repeat password', max_length=20, widget=forms.PasswordInput(attrs={'class': 'form-control input-lg', 'placeholder': "Repeat password"}))
+	image = forms.ImageField(label='Loud avatar', required=False, widget=forms.FileInput(attrs={'class': 'form-control input-lg'}))
 	def clean_username(self):
 		new_name = self.cleaned_data['username']
 		for user in Author.objects.all():
@@ -30,7 +31,7 @@ class SignupForm(forms.Form):
 		return self.cleaned_data['password']
 
 	def add(self):
-		Author.objects.create_user(username=self.cleaned_data['username'], email=self.cleaned_data['email'], password=self.cleaned_data['password'])
+		Author.objects.create_user(username=self.cleaned_data['username'], email=self.cleaned_data['email'], password=self.cleaned_data['password'], image=self.cleaned_data['image'])
 
 class SearchForm(forms.Form):
 	text_search = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control col-md-5'}))
@@ -83,10 +84,7 @@ class AnswerForm(forms.Form):
 class SettingsForm(forms.Form):
 	username = forms.CharField(label='Username', max_length=20, widget=forms.TextInput(attrs={'class': 'form-control input-lg', 'placeholder': "Enter username"}))
 	email = forms.EmailField(label='Email', max_length=20, widget=forms.EmailInput(attrs={'class': 'form-control input-lg', 'placeholder': "Enter email"}))
-	repeat_password = forms.CharField(label='Password', max_length=20, widget=forms.PasswordInput(attrs={'class': 'form-control input-lg', 'placeholder': "Enter password"}))
-	password = forms.CharField(label='Repeat password', max_length=20, widget=forms.PasswordInput(attrs={'class': 'form-control input-lg', 'placeholder': "Repeat password"}))
-	# hid_username = forms.CharField(label='Username', max_length=20, widget=forms.HiddenInput(attrs={'class': 'form-control input-lg', 'placeholder': "Enter username"}))
-	# hid_email = forms.CharField(label='Email', max_length=20, widget=forms.HiddenInput(attrs={'class': 'form-control input-lg', 'placeholder': "Enter email"}))
+	image = forms.ImageField(label='Loud avatar', required=False, widget=forms.FileInput(attrs={'class': 'form-control input-lg'}))
 #	def clean_username(self):
 #		new_name = self.cleaned_data['username']
 #		for user in Author.objects.all():
@@ -105,15 +103,11 @@ class SettingsForm(forms.Form):
 #					break
 #		return new_email
 
-	def clean_password(self):
-		if self.cleaned_data['repeat_password'] != self.cleaned_data['password']:
-			raise forms.ValidationError("Different passwords")
-		return self.cleaned_data['password']
 
 	def add(self, _author):
 		author = Author.objects.get(id=_author.id)
 		author.username = self.cleaned_data['username']
 		author.email = self.cleaned_data['email']
-		author.set_password(self.cleaned_data['password'])
-		print (author.email)
+		author.image = self.cleaned_data['image']
+		#print (author.email)
 		author.save()

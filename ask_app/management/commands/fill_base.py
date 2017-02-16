@@ -14,9 +14,9 @@ class Command(BaseCommand):
 
 	def fill_authors(self):
 		list_autors_name = ['Pushkin',' Tolstoy', 'Gogol', 'Dostoevskiy', 'Solovyev', 'Kluchevskiy', 'Chehov', 'Nekrasov', 'Goncharov', 'Radishev', 'Sholohov']
-		list_images = ['../static/r.jpg', '../static/list.png', '../static/fire.jpg', '../static/water.jpg', '../static/heart.png']
+		list_images = ['./uploads/r.jpg', './uploads/list.png', './uploads/fire.jpg', './uploads/water.jpg', './uploads/heart.png']
 		for name in list_autors_name:
-			image = random.choice(list_images)
+			new_image = random.choice(list_images)
 			Author.objects.create_user(username=name, password=777)
 
 	def fill_questions(self):

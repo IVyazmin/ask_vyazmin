@@ -12,7 +12,7 @@
   <div class="question">
     <div class="row">
       <div class="col-md-2">
-        <img class="avatar" src='../static/list.png' alt="Avatar" class="img-rounded">
+        <img class="avatar" src='{{ question.author.image.url }}' alt="Avatar" class="img-rounded">
         {{question.author}}
         <div class="btn-group btn-group-sm">
           <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-arrow-down"></span></button>

@@ -5,6 +5,9 @@ from django.contrib.auth.models import User, UserManager
 from django.shortcuts import get_list_or_404
 from django.shortcuts import get_object_or_404
 
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 class AnswerManager(models.Manager):
 
 	def correct(self):
@@ -39,7 +42,7 @@ class Answer(models.Model):
 	author = models.ForeignKey('Author', on_delete=models.CASCADE)
 	question = models.ForeignKey('Question', on_delete=models.CASCADE)
 	likes = models.IntegerField(verbose_name=u'Лайк', default=0)
-	#image = models.ImageField(verbose_name=u'Аватар')
+	
 
 	objects = AnswerManager()
 
@@ -89,7 +92,7 @@ class Tag(models.Model):
 
 class Author(User):
 	publications = models.IntegerField(verbose_name=u'Публикации', default=0)
-	image = models.ImageField(verbose_name=u'Аватар', upload_to='../media/')
+	image = models.ImageField(verbose_name=u'Аватар', upload_to='')
 	#objects = AuthorManager()
 	
 	class Meta:
