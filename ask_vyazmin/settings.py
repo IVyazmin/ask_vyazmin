@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ask_app',
 ]
 
 MIDDLEWARE = [
@@ -51,10 +52,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'ask_vyazmin.urls'
 
+AUTH_PROFILE_MODULE = 'accounts.Author'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), '/usr/local/lib/python2.7/dist-packages/django/template', '/usr/local/lib/python2.7/dist-packages/django/contrib/admin/templates'],
         'APP_DIRS': False,
         'OPTIONS': {
             'context_processors': [
@@ -66,7 +69,7 @@ TEMPLATES = [
         },
     },
 ]
-
+##
 WSGI_APPLICATION = 'ask_vyazmin.wsgi.application'
 
 

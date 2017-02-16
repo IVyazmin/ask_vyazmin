@@ -39,14 +39,26 @@
         <div id="name"><a href="{% url 'index' %}"> AskIlja </a></div>
       </div>
       <form role="form">
-        <div class="col-md-5">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-      </form>
-      <div class="col-md-1">
+        <div class="col-md-1">
         <a href="{% url 'ask' %}"><button type="button" class="btn btn-success">Ask!</button></a>
       </div>
-      {% block registration %} {% endblock %}
+      </form>
+      
+      {% if user.is_authenticated %}
+      <div class="col-md-1" id="imag">
+        <img class="capTwo" src="{{ user.image }}" alt="Avatar" class="img-rounded">
+      </div>
+      <div class="col-md-3">
+        {{ user.username }}<br>
+        <a href="{% url 'setting' %}">setting</a>
+        <a href="{% url 'logout' %}?continue={{ request.path }}">log out</a>
+      </div>
+      {% else %}
+      <div class="col-md-4 noName">
+        <a href="{% url 'login' %}?continue={{ request.path }}">login</a>
+        <a href="{% url 'signup' %}">register</a>
+      </div>
+      {% endif %}
     </div>
     <hr>
 

@@ -4,32 +4,21 @@
 
 {% block content %}
   <div class="capThree">Registration</div>
-  <form class="form-horizontal" role="form">
-    <div class="form-group">
-      <label for="inputEmail3" class="col-sm-3 control-label designation">Login</label>
-      <div class="col-sm-7">
-        <input type="text" maxlength="48" class="form-control input-lg" placeholder="Enter your login">
+  <form class="form-horizontal" role="form" method="POST" action="/signup/", enctype="multipart/form-data">
+    {%csrf_token%}
+    {% for f in form.visible_fields %}
+      {{ f.errors }}
+      <div class="form-group">
+        <label for= '{{ f.name }}' class="col-sm-3 control-label designation">{{ f.label }}</label>
+        <div class="col-sm-7">
+        {{ f }}
+        </div>
       </div>
-    </div>
-    <div class="form-group has-error">
-      <label for="inputPassword3" class="col-sm-3 control-label designation">Email</label>
-      <div class="col-sm-7">
-        <input type="text" maxlength="48" class="form-control input-lg" placeholder="Enter your email" id="inputError1">
-      </div>
-      <label class="control-label col-sm-2" for="inputError1">Input Error</label><br>
-    </div>
-    <div class="form-group">
-      <label for="inputEmail3" class="col-sm-3 control-label designation">NikeName</label>
-      <div class="col-sm-7">
-        <input type="text" maxlength="48" class="form-control input-lg" placeholder="Enter your nikename">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="inputEmail3" class="col-sm-3 control-label designation">Password</label>
-      <div class="col-sm-7">
-        <input type="password" maxlength="48" class="form-control input-lg" placeholder="Enter your password">
-      </div>
-    </div>
+    {% endfor %}
+
+
+    
+    
     <div class="form-group">
       <label for="inputEmail3" class="col-sm-3 control-label designation">Repeat password</label>
       <div class="col-sm-7">

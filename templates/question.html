@@ -20,12 +20,13 @@
       <span class="capThree">{{ using_question.title }}</span>
       <br>
       {{ using_question.text }}<br><br>
-       Tags:  {% for tag in using_question.tags %}<a href="{% url 'tag' tag %}"> {{tag}}, </a>{% endfor %}
+       Tags:  {% for tag in using_question.tags.all %}<a href="{% url 'tag' tag %}"> {{tag}}, </a>{% endfor %}
     </div>
   </div>
 </div>
 <hr>
 {% for answer in page %} 
+  <a name ='{{ answer.id }}'></a>
   <div class="question">
     <div class="row">
       <div class="col-md-2">
@@ -49,13 +50,17 @@
   {% endfor %}
 
   {% block paginator %}
-    {% url "question" using_question.number as start_url %}
+    {% url "question" using_question.id as start_url %}
     {% include "./paginator.html" %}
   {% endblock %}
 
   <hr>
-  <form class="form-horizontal myAnswer" role="form">
-    <textarea class="form-control input-lg" maxlength="256" placeholder="Enter yor answer here." rows="5"></textarea>
+  <form class="form-horizontal myAnswer" role="form" method="POST" action="{% url 'question' using_question.id %}">
+  {%csrf_token%}
+      <div class="form-group">
+        <label for= '{{ form.text.name }}' class="col-sm-3 control-label designation">{{ form.text.label }}</label>
+        {{ form.text }}
+      </div>
     <button type="submit" class="btn btn-success">Answer</button>
   </form>
         

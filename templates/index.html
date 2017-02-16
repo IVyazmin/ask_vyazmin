@@ -1,5 +1,5 @@
 
-{% extends "base1.html" %}
+{% extends "base.html" %}
 
 
 
@@ -8,10 +8,12 @@
 {% endblock %}
 {% block content %}
 {% for question in page %} 
+<a name ='{{ question.id }}'></a>
   <div class="question">
     <div class="row">
       <div class="col-md-2">
-        <img class="avatar" src="/r.jpg" alt="Avatar" class="img-rounded">
+        <img class="avatar" src='../static/list.png' alt="Avatar" class="img-rounded">
+        {{question.author}}
         <div class="btn-group btn-group-sm">
           <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-arrow-down"></span></button>
           <button type="button" class="btn btn-default disabled">{{ question.likes }}</button>
@@ -19,10 +21,10 @@
         </div>
       </div>
       <div class="col-md-10">
-        <a class="question" href="{% url 'question' question.number %}"> {{ question.title }} </a>
+        <a class="question" href="{% url 'question' question.id %}"> {{ question.title }} </a>
         <br>
         {{ question.text }}<br>
-        <a class="number" href="{% url 'question' question.number %}"> Answer (7)</a> Tags:  {% for tag in question.tags %}<a href="{% url 'tag' tag %}"> {{tag}}, </a>{% endfor %}
+        <a class="number" href="{% url 'question' question.id %}"> Answer ({{ question.answers }})</a> Tags:  {% for tag in question.tags.all %}<a href="{% url 'tag' tag %}"> {{tag}}, </a>{% endfor %}
       </div>
     </div>
   </div>
