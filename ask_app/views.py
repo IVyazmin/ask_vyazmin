@@ -7,6 +7,7 @@ from ask_app.models import *
 from ask_app.forms import *
 from django.shortcuts import redirect
 from django.contrib import auth
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -159,7 +160,7 @@ def setting(request):
         return redirect('/login?continue=/setting')
     author = request.user.author
     if request.POST:
-        form = SettingsForm(request.POST)
+        form = SettingsForm(request.POST, request.FILES)
         if form.is_valid():
             form.add(request.user)
             form = SettingsForm(initial={'username': author.username, 'hid_username': author.username, 'email': author.email, 'hid_email': request.user.email, 'password': request.user.password, 'repeat_password': request.user.password})
@@ -169,3 +170,112 @@ def setting(request):
         author = Author.objects.get(username=request.user.username)
         form = SettingsForm(initial={'username': author.username, 'hid_username': author.username, 'email': author.email, 'hid_email': request.user.email, 'password': request.user.password, 'repeat_password': request.user.password})
         return render(request, 'setting.html', {'members': members, 'popular_tags': popular_tags, 'form': form})
+
+def like(request):
+    if request.POST:
+        try:
+            _question = Question.objects.get(pk=request.POST.get('id'))
+        except:
+            return JsonResponse({'status': 'error'})
+        _user = request.user.author
+        likes = LikeQuestion.objects.all().filter(author=_user).filter(question=_question)
+        if (len(likes) == 0):
+            _likeQuestion = LikeQuestion(author=_user, question=_question, status=1)
+            _likeQuestion.save()
+            _question.likes += 1
+            _question.save()
+        else:
+            like = likes.first()
+            if (like.status < 0):
+                like.status = 1
+                like.save()
+                _question.likes += 2
+                _question.save()
+
+        return JsonResponse({'status': 'ok'})
+
+
+def dislike(request):
+    if request.POST:
+        try:
+            _question = Question.objects.get(pk=request.POST.get('id'))
+        except:
+            return JsonResponse({'status': 'error'})
+        _user = request.user.author
+        likes = LikeQuestion.objects.all().filter(author=_user).filter(question=_question)
+        if (len(likes) == 0):
+            _likeQuestion = LikeQuestion(author=_user, question=_question, status=-1)
+            _likeQuestion.save()
+            _question.likes -= 1
+            _question.save()
+        else:
+            like = likes.first()
+            if (like.status > 0):
+                like.status = -1
+                like.save()
+                _question.likes -= 2
+                _question.save()
+
+        return JsonResponse({'status': 'ok'})
+
+def like_answer(request):
+    if request.POST:
+        try:
+            _answer = Answer.objects.get(pk=request.POST.get('id'))
+        except:
+            return JsonResponse({'status': 'error'})
+        _user = request.user.author
+        likes = LikeAnswer.objects.all().filter(author=_user).filter(answer=_answer)
+        if (len(likes) == 0):
+            _likeAnswer = LikeAnswer(author=_user, answer=_answer, status=1)
+            _likeAnswer.save()
+            _answer.likes += 1
+            _answer.save()
+        else:
+            like = likes.first()
+            if (like.status < 0):
+                like.status = 1
+                like.save()
+                _answer.likes += 2
+                _answer.save()
+
+        return JsonResponse({'status': 'ok'})
+
+
+def dislike_answer(request):
+    if request.POST:
+        try:
+            _answer = Answer.objects.get(pk=request.POST.get('id'))
+        except:
+            return JsonResponse({'status': 'error'})
+        _user = request.user.author
+        likes = LikeAnswer.objects.all().filter(author=_user).filter(answer=_answer)
+        if (len(likes) == 0):
+            _likeAnswer = LikeAnswer(author=_user, answer=_answer, status=-1)
+            _likeAnswer.save()
+            _answer.likes -= 1
+            _answer.save()
+        else:
+            like = likes.first()
+            if (like.status > 0):
+                like.status = -1
+                like.save()
+                _answer.likes -= 2
+                _answer.save()
+
+        return JsonResponse({'status': 'ok'})
+
+def correct(request):
+    if request.POST:
+        try:
+            _answer = Answer.objects.get(pk=request.POST.get('id'))
+        except:
+            return JsonResponse({'status': 'error'})
+        if (_answer.is_correct != 'checked'):
+            _answer.is_correct = 'checked'
+            _answer.save()
+        else:
+            _answer.is_correct = ''
+            _answer.save()
+
+        return JsonResponse({'status': 'ok'})

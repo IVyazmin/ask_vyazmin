@@ -47,6 +47,8 @@ class AskForm(forms.Form):
 		question.save()
 		tags = self.cleaned_data['tags'].split(',')
 		for new_tag in tags:
+			if new_tag[0] == ' ':
+				new_tag = new_tag[1:]
 			tag = Tag.objects.filter(name=new_tag)
 			if len(tag) == 0:
 				tag = Tag(name=new_tag)
@@ -109,5 +111,4 @@ class SettingsForm(forms.Form):
 		author.username = self.cleaned_data['username']
 		author.email = self.cleaned_data['email']
 		author.image = self.cleaned_data['image']
-		#print (author.email)
 		author.save()

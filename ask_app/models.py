@@ -19,14 +19,9 @@ class AnswerManager(models.Manager):
 class QuestionManager(models.Manager):
 
 	def hot(self):
-		for question in self.all():
-			question.count_answers()
 		return self.order_by("-time_add")
 
 	def new(self):
-		for question in self.all():
-			question.count_likes()
-			question.count_answers()
 		return self.order_by("-likes")
 
 	def tag(self, tag_name):
@@ -38,7 +33,7 @@ class QuestionManager(models.Manager):
 
 class Answer(models.Model):
 	text = models.TextField(verbose_name=u'Текст')
-	is_correct = models.BooleanField( verbose_name=u'Правильный', default=False)
+	is_correct = models.TextField( verbose_name=u'Правильный', default='')
 	author = models.ForeignKey('Author', on_delete=models.CASCADE)
 	question = models.ForeignKey('Question', on_delete=models.CASCADE)
 	likes = models.IntegerField(verbose_name=u'Лайк', default=0)
@@ -61,7 +56,7 @@ class Question(models.Model):
 	tags = models.ManyToManyField('Tag')
 	likes = models.IntegerField(verbose_name=u'Лайк', default=0)
 	answers = models.IntegerField(verbose_name=u'Количество ответов', default=0)
-	#image = models.ImageField(verbose_name=u'Аватар')
+	
 	
 	objects = QuestionManager()
 
@@ -105,6 +100,7 @@ class Author(User):
 class LikeQuestion(models.Model):
 	author = models.ForeignKey('Author', on_delete=models.CASCADE)
 	question = models.ForeignKey('Question', on_delete=models.CASCADE)
+	status = models.IntegerField(verbose_name=u'Статус', default=0)
 
 	class Meta:
 		verbose_name = u'Лайк вопросу'
@@ -113,6 +109,7 @@ class LikeQuestion(models.Model):
 class LikeAnswer(models.Model):
 	author = models.ForeignKey('Author', on_delete=models.CASCADE)
 	answer = models.ForeignKey('Answer', on_delete=models.CASCADE)
+	status = models.IntegerField(verbose_name=u'Статус', default=0)
 
 	class Meta:
 		verbose_name = u'Лайк ответу'

@@ -28,7 +28,7 @@ class Command(BaseCommand):
 				word = ''
 				for t in range(0, 5):
 					word += random.choice('qwertyuiopasdfghjk')
-				_text += word
+				_text += word + ' '
 			_author=random.choice(Author.objects.all())
 			_question = Question(title=_title, text=_text, author=_author)
 			_question.save()

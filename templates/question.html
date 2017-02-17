@@ -1,7 +1,7 @@
 
 
 
-{% extends "base1.html" %}
+{% extends "base.html" %}
 
 
 
@@ -9,11 +9,11 @@
 <div class="answer">
   <div class="row">
     <div class="col-md-3">
-      <img class="avatar" src="/r.jpg" alt="Avatar" class="img-rounded">
+      <img class="avatar" src="{{ using_question.author.image.url }}" alt="Avatar" class="img-rounded">
       <div class="btn-group btn-group-lg">
-        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-arrow-down"></span></button>
+        <button type="button" class="btn btn-default js-dislike" data-id="{{ using_question.id }}"><span class="glyphicon glyphicon-arrow-down"></span></button>
         <button type="button" class="btn btn-default disabled">{{ using_question.likes }}</button>
-        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-arrow-up"></span></button>
+        <button type="button" class="btn btn-default js-like" data-id="{{ using_question.id }}"><span class="glyphicon glyphicon-arrow-up"></span></button>
       </div>
     </div>
     <div class="col-md-9">
@@ -30,18 +30,18 @@
   <div class="question">
     <div class="row">
       <div class="col-md-2">
-        <img class="avatar" src="/r.jpg" alt="Avatar" class="img-rounded">
+        <img class="avatar" src="{{ answer.author.image.url }}" alt="Avatar" class="img-rounded">
         <div class="btn-group btn-group-sm">
-          <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-arrow-down"></span></button>
+          <button type="button" class="btn btn-default js-dislike-answer" data-id="{{ answer.id }}"><span class="glyphicon glyphicon-arrow-down"></span></button>
           <button type="button" class="btn btn-default disabled">{{ answer.likes }}</button>
-          <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-arrow-up"></span></button>
+          <button type="button" class="btn btn-default js-like-answer" data-id="{{ answer.id }}"><span class="glyphicon glyphicon-arrow-up"></span></button>
         </div>
       </div>
       <div class="col-md-10">
         {{ answer.text }}<br>
         <div class="checkbox">
           <label>
-            <input type="checkbox" value=""> Correct!
+            <input class="correct" data-id="{{ answer.id }}" type="checkbox" value="" {{ answer.is_correct }}> Correct!
           </label>
         </div>
       </div>

@@ -7,6 +7,7 @@
   <div class="capThree">New Questions<a href="{% url 'hot' %}"> Hot questions</a></div>
 {% endblock %}
 {% block content %}
+{%csrf_token%}
 {% for question in page %} 
 <a name ='{{ question.id }}'></a>
   <div class="question">
@@ -15,9 +16,9 @@
         <img class="avatar" src='{{ question.author.image.url }}' alt="Avatar" class="img-rounded">
         {{question.author}}
         <div class="btn-group btn-group-sm">
-          <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-arrow-down"></span></button>
+          <button type="button" class="btn btn-default js-dislike" data-id="{{ question.id }}"><span class="glyphicon glyphicon-arrow-down"></span></button>
           <button type="button" class="btn btn-default disabled">{{ question.likes }}</button>
-          <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-arrow-up"></span></button>
+          <button type="button" class="btn btn-default js-like" data-id="{{ question.id }}"><span class="glyphicon glyphicon-arrow-up"></span></button>
         </div>
       </div>
       <div class="col-md-10">
@@ -30,9 +31,12 @@
   </div>
   {% endfor %}
 
+
+
   {% block paginator %}
     {% url "index" as start_url %}
     {% include "./paginator.html" %}
   {% endblock %}
         
 {% endblock %}
+

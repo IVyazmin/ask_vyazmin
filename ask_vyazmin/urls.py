@@ -19,4 +19,10 @@ urlpatterns = [
     url(r'^login/$', views.login, name = 'login'),
     url(r'^logout/$', views.logout, name = 'logout'),
     url(r'^setting/$', views.setting, name = 'setting'),
+
+    url(r'^like/$', views.like, name = 'like'),
+    url(r'^dislike/$', views.dislike, name = 'dislike'),
+    url(r'^like_answer/$', views.like_answer, name = 'like_answer'),
+    url(r'^dislike_answer/$', views.dislike_answer, name = 'dislike_answer'),
+    url(r'^correct/$', views.correct, name = 'correct'),
 ]
