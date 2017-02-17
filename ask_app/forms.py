@@ -43,6 +43,8 @@ class AskForm(forms.Form):
 
 	def add(self, _author):
 		_author = Author.objects.get(id=_author.id)
+		_author.publications += 1
+		_author.save()
 		question = Question(title=self.cleaned_data['title'], text=self.cleaned_data['text'], author=_author)
 		question.save()
 		tags = self.cleaned_data['tags'].split(',')
@@ -55,6 +57,8 @@ class AskForm(forms.Form):
 				tag.save()
 			else:
 				tag = tag[0]
+			tag.questions += 1
+			tag.save()
 			question.tags.add(tag)
 		question.save()		
 		return question
@@ -78,6 +82,8 @@ class AnswerForm(forms.Form):
 
 	def add(self, _author, question_number):
 		_author = Author.objects.get(id=_author.id)
+		_author.publications += 1
+		_author.save()
 		_question = Question.objects.number(question_number)
 		answer = Answer(text=self.cleaned_data['text'], author=_author, question=_question)
 		answer.save()

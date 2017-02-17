@@ -61,14 +61,13 @@ def index(request, page_number = 1):
     page_questions = lists(Question.objects.new(), page_number)
     if int(page_number) != int(page_questions.number):
         return redirect('index', page_number=page_questions.number) 
-    #author = Author.objects.
-    return render(request, 'index.html', {'page': page_questions, 'members': members, 'popular_tags': popular_tags})
+    return render(request, 'index.html', {'page': page_questions, 'members': Author.objects.best(), 'popular_tags': Tag.objects.popular()})
 
 def hot(request, page_number = 1):
     page_questions = lists(Question.objects.hot(), page_number)
     if int(page_number) != int(page_questions.number):
         return redirect('hot', page_number=page_questions.number)
-    return render(request, 'hot.html', {'page': page_questions,  'members': members, 'popular_tags': popular_tags})
+    return render(request, 'hot.html', {'page': page_questions,  'members': Author.objects.best(), 'popular_tags': Tag.objects.popular()})
 
 def signup(request):
     
@@ -81,7 +80,7 @@ def signup(request):
             return redirect('/')
     else:
         form = SignupForm()
-    return render(request, 'signup.html', { 'members': members, 'popular_tags': popular_tags, 'form': form})
+    return render(request, 'signup.html', { 'members': Author.objects.best(), 'popular_tags': Tag.objects.popular(), 'form': form})
 
 def ask(request):
     if not request.user.is_authenticated():
@@ -93,7 +92,7 @@ def ask(request):
             return redirect('/question/' + str(question.id))
     else:
         form = AskForm()
-	return render(request, 'ask.html', { 'members': members, 'popular_tags': popular_tags, 'form': form})
+	return render(request, 'ask.html', { 'members': Author.objects.best(), 'popular_tags': Tag.objects.popular(), 'form': form})
 
 def login(request):
     contin = request.GET.get('continue')
@@ -118,7 +117,7 @@ def login(request):
             return redirect('/')  
     else:
         form = LoginForm()
-    return render(request, 'login.html', { 'members': members, 'popular_tags': popular_tags, 'form': form})
+    return render(request, 'login.html', { 'members': Author.objects.best(), 'popular_tags': Tag.objects.popular(), 'form': form})
 
 def logout(request):
     auth.logout(request)
@@ -132,7 +131,7 @@ def tag(request, tag_name, page_number = 1):
     page_questions = lists(questions_with_tag, page_number)
     if int(page_number) != int(page_questions.number):
         return redirect('tag', tag_name=tag_name ,page_number=page_questions.number)
-    return render(request, 'tag.html', {'page': page_questions, 'using_tag': tag_name, 'members': members, 'popular_tags': popular_tags})
+    return render(request, 'tag.html', {'page': page_questions, 'using_tag': tag_name, 'members': Author.objects.best(), 'popular_tags': Tag.objects.popular()})
 
 def question(request, question_number, page_number = 1):
     if request.POST:
@@ -151,7 +150,7 @@ def question(request, question_number, page_number = 1):
         page_answers = lists(answers, page_number)
         if int(page_number) != int(page_answers.number):
             return redirect('question', question_number=question_number ,page_number=page_answers.number)
-    return render(request, 'question.html', {'page': page_answers, 'using_question': using_question,  'members': members, 'popular_tags': popular_tags, 'form': form})
+    return render(request, 'question.html', {'page': page_answers, 'using_question': using_question,  'members': Author.objects.best(), 'popular_tags': Tag.objects.popular(), 'form': form})
 
 def setting(request):
     
@@ -165,11 +164,11 @@ def setting(request):
             form.add(request.user)
             form = SettingsForm(initial={'username': author.username, 'hid_username': author.username, 'email': author.email, 'hid_email': request.user.email, 'password': request.user.password, 'repeat_password': request.user.password})
             # return redirect('/setting/')
-        return render(request, 'setting.html', {'members': members, 'popular_tags': popular_tags, 'form': form})
+        return render(request, 'setting.html', {'members': Author.objects.best(), 'popular_tags': Tag.objects.popular(), 'form': form})
     else:
         author = Author.objects.get(username=request.user.username)
         form = SettingsForm(initial={'username': author.username, 'hid_username': author.username, 'email': author.email, 'hid_email': request.user.email, 'password': request.user.password, 'repeat_password': request.user.password})
-        return render(request, 'setting.html', {'members': members, 'popular_tags': popular_tags, 'form': form})
+        return render(request, 'setting.html', {'members': Author.objects.best(), 'popular_tags': Tag.objects.popular(), 'form': form})
 
 def like(request):
     if request.POST:

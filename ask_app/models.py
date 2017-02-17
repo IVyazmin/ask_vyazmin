@@ -30,6 +30,16 @@ class QuestionManager(models.Manager):
 	def number(self, question_id):
 		return get_object_or_404(self, id=question_id)
 
+class TagManager(models.Manager):
+
+	def popular(self):
+		return self.order_by("-questions")[:10]
+
+class AuthorManager(models.Manager):
+
+	def best(self):
+		return self.order_by("-publications")[:7]
+
 
 class Answer(models.Model):
 	text = models.TextField(verbose_name=u'Текст')
@@ -77,6 +87,9 @@ class Question(models.Model):
 
 class Tag(models.Model):
 	name = models.CharField(max_length=10, verbose_name=u'Тэг')
+	questions = models.IntegerField(verbose_name=u'Количество вопросов', default=0)
+
+	objects = TagManager()
 	
 	class Meta:
 		verbose_name = u'Тэг'
@@ -88,7 +101,8 @@ class Tag(models.Model):
 class Author(User):
 	publications = models.IntegerField(verbose_name=u'Публикации', default=0)
 	image = models.ImageField(verbose_name=u'Аватар', upload_to='')
-	#objects = AuthorManager()
+
+	objects = AuthorManager()
 	
 	class Meta:
 		verbose_name = u'Автор'
